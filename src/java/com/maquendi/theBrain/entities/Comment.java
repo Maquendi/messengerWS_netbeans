@@ -1,29 +1,32 @@
 
 package com.maquendi.theBrain.entities;
 
-import java.util.Calendar;
+
+import java.util.Date;
 import java.util.Objects;
 
 
-public class Comment {
+public class Comment implements IComment{
     
     private Integer commentId;
     private Profile profile;
-    private String comment;
-    private Calendar comment_date;
-    private char comment_type;
+    private Date comment_date;
+    private String content;
 
-    
-    
-    public Comment(){
-      comment_date = Calendar.getInstance();
+    public String getContent() {
+        return content;
     }
-    
-    public Integer getCommentId() {
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+  
+
+    public Integer getID(){
         return commentId;
     }
 
-    public void setCommentId(Integer commentId) {
+    public void setID(Integer commentId) {
         this.commentId = commentId;
     }
 
@@ -35,29 +38,15 @@ public class Comment {
         this.profile = profile;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Calendar getComment_date() {
+ 
+    public Date getDate() {
         return comment_date;
     }
 
-    public void setComment_date(Long date) {
-        this.comment_date.setTimeInMillis(date);
+    public void setDate(Date date) {
+        this.comment_date = date;
     }
 
-    public char getComment_type() {
-        return comment_type;
-    }
-
-    public void setComment_type(char comment_type) {
-        this.comment_type = comment_type;
-    }
 
     @Override
     public int hashCode() {
@@ -86,7 +75,7 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment{" + "commentId=" + commentId + ", profile=" + profile + ", comment=" + comment + ", comment_date=" + comment_date + ", comment_type=" + comment_type + '}';
+        return "Comment{" + "commentId=" + commentId + ", profile=" + profile + ", comment_date=" + comment_date + ", comment_type=" + '}';
     }
     
     

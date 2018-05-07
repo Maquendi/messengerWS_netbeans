@@ -4,7 +4,6 @@ package com.maquendi.theBrain.dao;
 
 import com.maquendi.theBrain.entities.Post;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +36,7 @@ public class PostDao {
                po.setPost_content(rs.getString("post_content"));
                po.setProfile(pDao.find(rs.getInt("profileId")));
                po.setWhos_profile(pDao.find(rs.getInt("whos_profile")));
-               po.setPost_date(rs.getDate("post_date").getTime());
+               po.setPost_date(new java.util.Date(rs.getDate("date_created").getTime()));
                lista.add(po);
            }
 
@@ -73,7 +72,7 @@ public class PostDao {
                po.setPost_content(rs.getString("post_content"));
                po.setProfile(pDao.find(rs.getInt("profileId")));
                po.setWhos_profile(pDao.find(rs.getInt("whos_profile")));
-               po.setPost_date(rs.getDate("post_date").getTime());
+               po.setPost_date(new java.util.Date(rs.getDate("date_created").getTime()));
                lista.add(po);
              }
              
@@ -104,7 +103,7 @@ public class PostDao {
             pst.setInt(1,post.getProfile().getProfileId());
             pst.setInt(2,post.getWhos_profile().getProfileId());
             pst.setString(3,post.getPost_content());
-            pst.setDate(4,new Date(post.getPost_date().getTimeInMillis()));
+            pst.setDate(4,new java.sql.Date(post.getPost_date().getTime()));
             pst.executeUpdate();
             ResultSet rs = pst.getGeneratedKeys();
             if(rs.next()){
@@ -141,7 +140,7 @@ public class PostDao {
                 post.setPost_content(rs.getString("post_content"));
                 post.setProfile(pDao.find(rs.getInt("profileId")));
                 post.setWhos_profile(pDao.find(rs.getInt("whos_profile")));
-                post.setPost_date(rs.getDate("post_date").getTime());
+                post.setPost_date(new java.util.Date(rs.getDate("date_created").getTime()));
                
             }
         }catch(SQLException e){
@@ -154,8 +153,48 @@ public class PostDao {
      }
      
      
+      
      
+     public Post update(Post post) throws SQLException
+     {
+         
+         String query = "UPDATE post SET post_content = ? WHERE postId = ?";
+         
+         try{
+             PreparedStatement pst = conn.connectar().prepareStatement(query);
+             pst.setString(1,post.getPost_content());
+             pst.setInt(2,post.getPostId());
+             pst.executeUpdate();
+             
+         }catch(SQLException e)
+         {
+             throw e;
+         }
+         
+         return find(post.getPostId());
+     }
      
      
     
+     
+     public Post delete(Integer postId) throws SQLException {
+         
+         String query = "DELETE FROM post WHERE postId = ?";
+         Post post = null;
+         
+         try{
+             
+             post = find(postId);
+             PreparedStatement pst = conn.connectar().prepareStatement(query);
+             pst.setInt(1,postId);
+             pst.executeUpdate();
+
+         }catch(SQLException e){
+             throw e;
+         }
+         
+         
+         return post;
+     }
+     
 }

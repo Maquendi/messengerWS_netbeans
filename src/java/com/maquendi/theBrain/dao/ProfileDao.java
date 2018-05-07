@@ -35,6 +35,7 @@ public class ProfileDao {
                 profile.setProfileName(rs.getString("prof_name"));
                 profile.setFirstName(rs.getString("first_name"));
                 profile.setLastName(rs.getString("last_name"));
+                profile.setFecha_creada(new java.util.Date(rs.getDate("date_created").getTime()));
               }
             
             }catch(SQLException e){
@@ -63,6 +64,7 @@ public class ProfileDao {
                 profile.setProfileName(rs.getString("prof_name"));
                 profile.setFirstName(rs.getString("first_name"));
                 profile.setLastName(rs.getString("last_name"));
+                profile.setFecha_creada(new java.util.Date(rs.getDate("date_created").getTime()));
               }
             
             }catch(SQLException e){
@@ -73,6 +75,25 @@ public class ProfileDao {
          return profile;
     }
     
+     
+     
+     public ResultSet getResultSet() throws SQLException{
+         
+         String query = "SELECT * FROM profile";
+         ResultSet rs = null;
+		
+		try{
+			
+		    PreparedStatement pst = connector.connectar().prepareStatement(query);
+		    rs = pst.executeQuery(); 
+		  }catch(SQLException e){
+			throw e;
+		}finally{
+		   connector.desconectar();
+		}
+            return rs;
+         
+     }
     
     
     
@@ -92,6 +113,7 @@ public class ProfileDao {
 		    prof.setFirstName(rs.getString("first_name"));
 		    prof.setLastName(rs.getString("last_name"));
 		    prof.setProfileName(rs.getString("prof_name"));
+                     prof.setFecha_creada(new java.util.Date(rs.getDate("date_created").getTime()));
 		    lista.add(prof);
 		   }
                     

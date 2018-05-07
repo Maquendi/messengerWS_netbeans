@@ -1,6 +1,7 @@
 
 package com.maquendi.theBrain.entities;
 
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -10,7 +11,17 @@ public class Profile {
     private String profileName;
     private String firstName;
     private String lastName;
+    private Date fecha_creada;
 
+    public Date getFecha_creada() {
+        return fecha_creada;
+    }
+
+    public void setFecha_creada(Date fecha_creada) {
+        this.fecha_creada = fecha_creada;
+    }
+
+    
     public Integer getProfileId() {
         return profileId;
     }

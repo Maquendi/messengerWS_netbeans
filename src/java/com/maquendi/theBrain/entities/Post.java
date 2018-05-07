@@ -3,6 +3,7 @@ package com.maquendi.theBrain.entities;
 
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.Date;
 
 
 public class Post {
@@ -11,11 +12,9 @@ public class Post {
     private Profile profile;
     private Profile whos_profile;
     private String post_content;
-    private Calendar post_date;
+    private Date date_created;
 
-    public Post(){
-        this.post_date = Calendar.getInstance();
-    }
+   
     
     
     public Integer getPostId() {
@@ -50,12 +49,12 @@ public class Post {
         this.post_content = post_content;
     }
 
-    public Calendar getPost_date() {
-        return post_date;
+    public Date getPost_date() {
+        return date_created;
     }
 
-    public void setPost_date(Long date) {
-        this.post_date.setTimeInMillis(date);
+    public void setPost_date(Date date) {
+        this.date_created = date;
     }
 
     @Override
@@ -85,7 +84,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "postId=" + postId + ", profile=" + profile + ", whos_profile=" + whos_profile + ", post_content=" + post_content + ", post_date=" + post_date + '}';
+        return "Post{" + "postId=" + postId + ", profile=" + profile + ", whos_profile=" + whos_profile + ", post_content=" + post_content + ", post_date=" + date_created + '}';
     }
     
     

@@ -2,6 +2,7 @@
 package com.maquendi.theBrain.entities;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -9,7 +10,7 @@ public class Like {
     
     private Integer likeId;
     private Profile profile;
-    private Calendar like_date;
+    private Date like_date;
     private char tipo_like;
 
     public Integer getLikeId() {
@@ -28,11 +29,11 @@ public class Like {
         this.profile = profile;
     }
 
-    public Calendar getLike_date() {
+    public Date getLike_date() {
         return like_date;
     }
 
-    public void setLike_date(Calendar like_date) {
+    public void setLike_date(Date like_date) {
         this.like_date = like_date;
     }
 
