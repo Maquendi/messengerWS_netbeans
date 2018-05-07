@@ -3,7 +3,6 @@ package com.maquendi.theBrain.dao;
 
 import com.maquendi.theBrain.entities.C_Comment;
 import com.maquendi.theBrain.entities.Comment;
-import com.maquendi.theBrain.entities.IComment;
 import com.maquendi.theBrain.entities.Post;
 import com.maquendi.theBrain.entities.Parent_Comment;
 import java.sql.Connection;
@@ -13,8 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 public class CommentDao {

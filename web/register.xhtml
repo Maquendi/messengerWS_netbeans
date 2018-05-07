@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="index.css"/> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h1 style="display: inline;">Crear nueva cuenta</h1>
+            <p:commandLink value="sign in" action="#{redirect.login()}" styleClass="cLink"/>
+            
+            <hr/>
+            <h:form>
+                
+                <h:panelGrid columns="3" cellspacing="5" cellpadding="5" title="user information" styleClass="grid">
+                    
+                    <p:outputLabel for="txtname" value="first name"/>
+                    <p:inputText id="txtname"/>
+                    <p:message for="txtname"/>
+                    
+                    
+                     <p:outputLabel for="txtlastname" value="last name"/>
+                    <p:inputText id="txtlastname"/>
+                    <p:message for="txtlastname"/>
+                    
+                    
+                     <p:outputLabel for="txtemail" value="email address:"/>
+                    <p:inputText id="txtemail"/>
+                    <p:message for="txtemail"/>
+                    
+                    
+                    
+                     <p:outputLabel for="txtpassword" value="password"/>
+                    <p:password id="txtpassword"/>
+                    <p:message for="txtpassword"/>
+                    
+                    
+                    <p:outputLabel for="confirmPass" value="confirm password"/>
+                    <p:password id="confirmPass"/>
+                    <p:message for="confirmPass"/>
+                    
+                </h:panelGrid>
+                
+                
+                <div class="inner">
+                    
+                    <h:panelGrid>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </h:panelGrid>
+                    
+                    
+                    
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

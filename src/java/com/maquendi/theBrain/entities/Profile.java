@@ -2,6 +2,7 @@
 package com.maquendi.theBrain.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -12,7 +13,25 @@ public class Profile {
     private String firstName;
     private String lastName;
     private Date fecha_creada;
+    private String foto_path;
+    private List<String> pictureList;
 
+    public List<String> getPictureList() {
+        return pictureList;
+    }
+
+    public void setPictureList(List<String> pictureList) {
+        this.pictureList = pictureList;
+    }
+
+    public String getFoto_path() {
+        return foto_path;
+    }
+
+    public void setFoto_path(String foto_path) {
+        this.foto_path = foto_path;
+    }
+    
     public Date getFecha_creada() {
         return fecha_creada;
     }
