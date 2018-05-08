@@ -3,15 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/entities/C_Comment.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/entities/ICommentType.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/dao/PostDao.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/entities/PostComment.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/entities/Comment.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/dao/ProfileDao.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/dao/CommentDao.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/dao/LikeDao.java</file>
-            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/theBrain/dao/Conector.java</file>
+            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/web/Resources/css/index.css</file>
+            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/web/index.xhtml</file>
+            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/web/welcomePrimefaces.xhtml</file>
+            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/web/register.xhtml</file>
+            <file>file:/C:/Users/Maquendi/Documents/NetBeansProjects/messengerWS/src/java/com/maquendi/beans/redirectBean.java</file>
         </group>
     </open-files>
 </project-private>

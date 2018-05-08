@@ -1,12 +1,12 @@
 
 package com.maquendi.theBrain.entities;
 
-import java.util.Calendar;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Date;
 
 
-public class Post {
+public class Post implements Serializable{
     
     private Integer postId;
     private Profile profile;

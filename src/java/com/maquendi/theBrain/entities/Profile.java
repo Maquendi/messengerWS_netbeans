@@ -1,12 +1,13 @@
 
 package com.maquendi.theBrain.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 
-public class Profile {
+public class Profile implements Serializable{
     
     private Integer profileId;
     private String profileName;
@@ -14,6 +15,8 @@ public class Profile {
     private String lastName;
     private Date fecha_creada;
     private String foto_path;
+    private String email;
+    private String password;
     private List<String> pictureList;
 
     public List<String> getPictureList() {
@@ -97,6 +100,26 @@ public class Profile {
         }
         return true;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
+    
+    
 
     @Override
     public String toString() {

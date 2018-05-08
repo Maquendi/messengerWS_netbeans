@@ -26,7 +26,6 @@ public class MessageDao{
 		
 		
 		String sql = "INSERT INTO message(message,date_created,profileId) VALUES(?,?,?)";
-		Message mess = null;
 		Connection conexion = conn.connectar();
 		int messageId =0;
 		
@@ -38,7 +37,7 @@ public class MessageDao{
 	
 			PreparedStatement pst =  (PreparedStatement) conexion.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);	
 			pst.setString(1,message.getMessage());
-			pst.setDate(2,new Date(message.getMessageDate().getTimeInMillis()));
+			pst.setDate(2,new Date(message.getMessageDate().getTime()));
 			pst.setInt(3,message.getProfile().getProfileId());
 			pst.executeUpdate();
 			ResultSet rs = pst.getGeneratedKeys();
@@ -78,7 +77,7 @@ public class MessageDao{
 				newMessage = new Message();
 				newMessage.setMessageId(rs.getInt("messageId"));
 				newMessage.setProfile(pDao.find(rs.getInt("profileId")));
-                                newMessage.setMessageDate(rs.getDate("date_created").getTime());
+                                newMessage.setMessageDate(new java.util.Date(rs.getDate("date_created").getTime()));
 				newMessage.setMessage(rs.getString("message"));
 			}
 
@@ -110,7 +109,7 @@ public class MessageDao{
                                 m.setMessageId(rs.getInt("messageId"));
 				m.setMessage(rs.getString("message"));
 				m.setProfile(pDao.find(rs.getInt("profileId")));
-                                m.setMessageDate(rs.getDate("date_created").getTime());
+                                m.setMessageDate(new java.util.Date(rs.getDate("date_created").getTime()));
 				lista.add(m);
 			  }
 			
@@ -187,7 +186,7 @@ public class MessageDao{
 		 {
 		 Message message = new Message();
 			 message.setProfile(pDao.find(rs.getInt("profileId")));
-			 message.setMessageDate(rs.getDate("date_created").getTime());
+			 message.setMessageDate(new java.util.Date(rs.getDate("date_created").getTime()));
 			 message.setMessageId(rs.getInt("messageId"));
 			 message.setMessage(rs.getString("message"));
 			 lista.add(message);
@@ -216,7 +215,7 @@ public class MessageDao{
 		 {
 		 Message message = new Message();
 			 message.setProfile(pDao.find(rs.getInt("profileId")));
-			 message.setMessageDate(rs.getDate("date_created").getTime());
+			 message.setMessageDate(new java.util.Date(rs.getDate("date_created").getTime()));
 			 message.setMessageId(rs.getInt("messageId"));
 			 message.setMessage(rs.getString("message"));
 			 lista.add(message);

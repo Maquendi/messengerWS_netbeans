@@ -1,10 +1,11 @@
 
 package com.maquendi.theBrain.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 
-public class PostLike {
+public class PostLike implements Serializable {
     
     private Post post;
     private Like like;

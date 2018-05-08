@@ -2,11 +2,12 @@
 package com.maquendi.theBrain.entities;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 
-public class Comment implements IComment{
+public class Comment implements IComment,Serializable{
     
     private Integer commentId;
     private Profile profile;

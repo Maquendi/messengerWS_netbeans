@@ -11,29 +11,30 @@
        
         <div class="center">
             
+            
             <h:form>
-                
+                <p:growl autoUpdate="false" id="message" showDetail="true"/>    
                 <h:panelGrid  columns="3">
                     
                     <p:outputLabel for="username" value="User email"/>
-                    <p:inputText id="username" required="true" requiredMessage="provide an email"/>
+                    <p:inputText styleClass="input" id="username"  immediate="true"  placeholder="username or email address"  value="#{login.username}" required="true" requiredMessage="provide an email"/>
                     <p:message for="username"/>
                     
                     
                     <p:outputLabel for="password" value="Password"/>
-                    <p:password id="password" required="true" requiredMessage="enter password"/>
+                    <p:password styleClass="input" placeholder="enter your password" id="password" value="#{login.password}" required="true" requiredMessage="enter password"/>
                     <p:message for="password"/>
                     
                     
                     <p:column/>
-                    <p:commandButton value="Sign In" styleClass="btn" />
+                    <p:commandButton value="Sign In" actionListener="#{login.authenticate()}" styleClass="btn" update="message"/>
                     <p:column />    
                  
                 </h:panelGrid>
                 
                 <p:separator />
                
-                <p:commandLink value="crear una cuenta" action="#{redirect.register()}"/>
+                <p:commandLink immediate="true" value="crear una cuenta" action="#{redirect.register()}"/>
                
             </h:form>
             

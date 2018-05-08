@@ -1,21 +1,21 @@
 
 package com.maquendi.theBrain.entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 
-public class Message {
+public class Message implements Serializable{
     
     private Integer messageId;
     private String message;
-    private Calendar messageDate;
+    private Date messageDate;
     private Profile profile;
 
     
-    public Message(){
-        messageDate = Calendar.getInstance();
-    }
+   
     
     public Integer getMessageId() {
         return messageId;
@@ -33,12 +33,12 @@ public class Message {
         this.message = message;
     }
 
-    public Calendar getMessageDate() {
+    public Date getMessageDate() {
         return messageDate;
     }
 
-    public void setMessageDate(Long date) {
-        messageDate.setTimeInMillis(date);
+    public void setMessageDate(Date date) {
+        messageDate = date;
     }
 
     public Profile getProfile() {

@@ -1,12 +1,12 @@
 
 package com.maquendi.theBrain.entities;
 
-import java.util.Calendar;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 
-public class Like {
+public class Like implements Serializable{
     
     private Integer likeId;
     private Profile profile;

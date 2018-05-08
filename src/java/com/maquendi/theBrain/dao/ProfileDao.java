@@ -129,9 +129,9 @@ public class ProfileDao {
   
   
       
-      public Profile addProfile(Profile profile) throws SQLException{
+      public Profile create(Profile profile) throws SQLException{
 		 
-		String insert = "INSERT INTO profile(prof_name,first_name,last_name) VALUES(?,?,?)";
+		String insert = "INSERT INTO profile(prof_name,first_name,last_name,email,password) VALUES(?,?,?,?,?)";
 		Connection conn = connector.connectar();
 		
 		try{
@@ -140,6 +140,8 @@ public class ProfileDao {
 			pst.setString(1,profile.getProfileName());
 			pst.setString(2,profile.getFirstName());
 			pst.setString(3,profile.getLastName());
+                        pst.setString(4,profile.getEmail());
+                        pst.setString(5,profile.getPassword());
 			pst.executeUpdate();
 			conn.commit();
 		   }catch(SQLException e){
@@ -203,4 +205,46 @@ public class ProfileDao {
 	}
       
     
+      
+      
+      public Profile authenticar(String username,String password) throws SQLException{
+          
+          String query;
+          Profile prof = null;
+          if(username.contains("@")){
+              query = "SELECT * FROM profile WHERE email = ? AND password = ?";
+          }else{
+              query = "SELECT * FROM profile WHERE prof_name = ? AND password = ?";
+          }
+          
+          try{
+              PreparedStatement pst = connector.connectar().prepareStatement(query);
+              pst.setString(1,username);
+              pst.setString(2,password);
+              
+              ResultSet rs = pst.executeQuery();
+              
+              if(rs.next()){
+                  prof = new Profile();
+                  prof.setEmail(rs.getString("email"));
+                  prof.setPassword(rs.getString("password"));
+                  prof.setProfileName(rs.getString("prof_name"));
+                  prof.setProfileId(rs.getInt("profileId"));
+                  prof.setFecha_creada(rs.getDate("date_created"));
+                  prof.setLastName(rs.getString("last_name"));
+                  prof.setFirstName(rs.getString("first_name"));
+                  prof.setFoto_path(rs.getString("profile_picture"));
+
+              }
+              
+              
+              
+          }catch(SQLException e){
+              throw e;
+          }
+
+          return prof;          
+      }
+      
+      
 }

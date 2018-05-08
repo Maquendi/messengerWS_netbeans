@@ -6,69 +6,60 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet library="css" name="index.css"/> 
+        <h:outputScript library="js" name="index.js"/>
     </h:head>
     <h:body>
         <div class="container">
+            
+             <h:form>
             <h1 style="display: inline;">Crear nueva cuenta</h1>
-            <p:commandLink value="sign in" action="#{redirect.login()}" styleClass="cLink"/>
+            <p:commandLink immediate="true" value="sign in" action="#{redirect.login()}" styleClass="cLink" onmouseover="highlight(this)" onmouseout="unhighlight(this)"/>
             
             <hr/>
-            <h:form>
+           
                 
+            <p:growl  autoUpdate="false" id="mensajes" showDetail="true" />
                 <h:panelGrid columns="3" cellspacing="5" cellpadding="5" title="user information" styleClass="grid">
                     
-                    <p:outputLabel for="txtname" value="first name"/>
-                    <p:inputText id="txtname"/>
+                    <p:outputLabel for="txtname" value="first name" />
+                    <p:inputText immediate="true" id="txtname" required="true" value="#{registerBean.profile.firstName}"/>
                     <p:message for="txtname"/>
                     
                     
-                     <p:outputLabel for="txtlastname" value="last name"/>
-                    <p:inputText id="txtlastname"/>
+                    <p:outputLabel for="txtlastname" value="last name" />
+                    <p:inputText  id="txtlastname" required="true" value="#{registerBean.profile.lastName}"/>
                     <p:message for="txtlastname"/>
                     
                     
+                    <p:outputLabel for="profileName" value="profile name"/>
+                    <p:inputText id="profileName" required="true" value="#{registerBean.profile.profileName}"/>
+                    <p:message for="profileName"/>
+                    
+                    
+                    
                      <p:outputLabel for="txtemail" value="email address:"/>
-                    <p:inputText id="txtemail"/>
+                     <p:inputText id="txtemail" required="true" value="#{registerBean.profile.email}"/>
                     <p:message for="txtemail"/>
                     
                     
                     
                      <p:outputLabel for="txtpassword" value="password"/>
-                    <p:password id="txtpassword"/>
+                     <p:password id="txtpassword" required="true" value="#{registerBean.profile.password}"/>
                     <p:message for="txtpassword"/>
                     
                     
                     <p:outputLabel for="confirmPass" value="confirm password"/>
                     <p:password id="confirmPass"/>
                     <p:message for="confirmPass"/>
-                    
                 </h:panelGrid>
+             
                 
-                
-                <div class="inner">
-                    
-                    <h:panelGrid>
-                        
-                        
-                        
-                        
-                        
-                        
-                    </h:panelGrid>
-                    
-                    
-                    
-                </div>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+              
+                  
+                <p:commandButton value="registrar" styleClass="btnRegister" actionListener="#{registerBean.registrar()}" update="mensajes"/>
+                   
+              
+  
             </h:form>
         </div>
     </h:body>

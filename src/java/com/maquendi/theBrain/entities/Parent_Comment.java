@@ -1,11 +1,12 @@
 
 package com.maquendi.theBrain.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Parent_Comment extends Comment{
+public class Parent_Comment extends Comment implements Serializable{
     
     private Post post;
     List<Integer> childList = new ArrayList<>();
