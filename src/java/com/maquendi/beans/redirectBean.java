@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.maquendi.beans;
 
 import java.io.Serializable;
@@ -15,6 +11,9 @@ import javax.inject.Named;
 public class redirectBean implements Serializable{
     
     
+    
+    
+    
     public String register(){
         return "register";
     }
@@ -22,4 +21,11 @@ public class redirectBean implements Serializable{
     public String login(){
         return "index";
     }
+    
+    
+    public String change_account_info(){
+        return "open";
+    }
+    
+    
 }

@@ -94,8 +94,8 @@ public class PostDao {
      
      public Post add(Post post) throws SQLException{
          
-         String sql = "INSERT INTO post(profileId,whos_profile,post_content,post_date)VALUES(?,?,?,?)";
-        int commentId = 0;
+         String sql = "INSERT INTO post(profileId,whos_profile,post_content)VALUES(?,?,?)";
+        int postId = 0;
         Connection conector = conn.connectar();
         try{
             conector.setAutoCommit(false);
@@ -103,11 +103,11 @@ public class PostDao {
             pst.setInt(1,post.getProfile().getProfileId());
             pst.setInt(2,post.getWhos_profile().getProfileId());
             pst.setString(3,post.getPost_content());
-            pst.setDate(4,new java.sql.Date(post.getPost_date().getTime()));
+            //pst.setDate(4,new java.sql.Date(post.getPost_date().getTime()));
             pst.executeUpdate();
             ResultSet rs = pst.getGeneratedKeys();
             if(rs.next()){
-                commentId = rs.getInt(1);
+                postId = rs.getInt(1);
             }
             conector.commit();
         }catch(SQLException e){
@@ -117,7 +117,7 @@ public class PostDao {
             conn.desconectar();
         }
            
-        return find(commentId);
+        return find(postId);
          
      }
      

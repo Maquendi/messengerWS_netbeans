@@ -13,7 +13,7 @@
             
             
             <h:form>
-                <p:growl autoUpdate="false" id="message" showDetail="true"/>    
+                <p:growl autoUpdate="true" id="message" showDetail="true"/>    
                 <h:panelGrid  columns="3">
                     
                     <p:outputLabel for="username" value="User email"/>
@@ -27,7 +27,7 @@
                     
                     
                     <p:column/>
-                    <p:commandButton value="Sign In" actionListener="#{login.authenticate()}" styleClass="btn" update="message"/>
+                    <p:commandButton value="Sign In" action="#{login.authenticate()}" styleClass="btn" update="message"/>
                     <p:column />    
                  
                 </h:panelGrid>

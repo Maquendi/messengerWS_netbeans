@@ -32,22 +32,25 @@ public class RegisterBean implements Serializable{
     
     
     
-    public void registrar(){
+    public String registrar(){
         
         ProfileDao dao = new ProfileDao();
         FacesContext context = FacesContext.getCurrentInstance();
+        String result ="";
         
         try{
             
-            
+         
          dao.create(profile);
           
-         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successfull","Profile Created")); 
-         
+         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successfull","Profile Created, Sign In.")); 
+         result = "index";
         }catch(SQLException e)
         {
+            result = "register";
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"error","An error ocurred "+e.getMessage()));
         }
     
+        return result;
     }
 }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.maquendi.beans;
 
 import com.maquendi.theBrain.dao.ProfileDao;
@@ -21,6 +17,16 @@ public class LoginBean implements Serializable{
     
     private String username;
     private String password;
+    private String result;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+    
 
     public String getUsername() {
         return username;
@@ -40,17 +46,27 @@ public class LoginBean implements Serializable{
 
   
     
-    public void authenticate(){
+    public String authenticate(){
         
         FacesContext context = FacesContext.getCurrentInstance();
         ProfileDao dao = new ProfileDao();
+        
         try{
             
            Profile prof = dao.authenticar(username, password);
            if(prof == null){
                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Authentication Failed","Could not Authenticate"));
+               result = "failed";
+               context.getExternalContext().getFlash().setKeepMessages(true);
            }else{
-               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Authenticated","Welcome " + prof.getFirstName()));
+               
+               
+               context.getExternalContext().getSessionMap().put("loggedUser", prof);
+               
+               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"User Authenticated","Welcome " + prof.getFirstName()));
+               result = "success";
+               context.getExternalContext().getFlash().setKeepMessages(true);
+               //FacesContext.getCurrentInstance().getExternalContext().redirect("userViews/home.xhtml");
            }
            
            
@@ -59,7 +75,7 @@ public class LoginBean implements Serializable{
         }
         
         
-        
+        return result;
         
     }
     

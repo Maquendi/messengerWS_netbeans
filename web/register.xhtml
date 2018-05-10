@@ -18,7 +18,7 @@
             <hr/>
            
                 
-            <p:growl  autoUpdate="false" id="mensajes" showDetail="true" />
+            <p:growl  autoUpdate="false" id="mensajes" showDetail="true"  showSummary="false"/>
                 <h:panelGrid columns="3" cellspacing="5" cellpadding="5" title="user information" styleClass="grid">
                     
                     <p:outputLabel for="txtname" value="first name" />
@@ -56,7 +56,7 @@
                 
               
                   
-                <p:commandButton value="registrar" styleClass="btnRegister" actionListener="#{registerBean.registrar()}" update="mensajes"/>
+                <p:commandButton value="registrar" styleClass="btnRegister" action="#{registerBean.registrar()}" update="mensajes"/>
                    
               
   
