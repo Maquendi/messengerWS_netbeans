@@ -112,3 +112,17 @@
 .moveMenuBar{
     margin-left:22%;
 }
+
+
+
+.postdiv{
+    
+    
+    background-color: #fff; 
+    border-radius:5px; 
+    margin-top: 8px;
+    padding-top: 5px;
+    padding-bottom:10px;
+    padding-right: 5px;
+    padding-left: 5px;
+}

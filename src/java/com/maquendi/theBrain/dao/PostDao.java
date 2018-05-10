@@ -72,7 +72,7 @@ public class PostDao {
                po.setPost_content(rs.getString("post_content"));
                po.setProfile(pDao.find(rs.getInt("profileId")));
                po.setWhos_profile(pDao.find(rs.getInt("whos_profile")));
-               po.setPost_date(new java.util.Date(rs.getDate("date_created").getTime()));
+               po.setPost_date(new java.util.Date(rs.getTimestamp("date_created").getTime()));
                lista.add(po);
              }
              

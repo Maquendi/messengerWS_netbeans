@@ -7,29 +7,65 @@ import com.maquendi.theBrain.entities.Post;
 import com.maquendi.theBrain.entities.Profile;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named(value="postbean")
 @ViewScoped
 public class PostBean implements Serializable{
     
+    
     private Post post;
-    private Profile user;
+    
+    private List<Post> myPostList;
+    private Profile loggedUser;
+    
+    
+    private PostDao postdao;
 
     @PostConstruct
     public void init(){
        
+        postdao = new PostDao();
+       
         post = new Post();
-        user = (Profile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loggedUser");
-        post.setProfile(user);
-        post.setWhos_profile(user);
+        loggedUser = (Profile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loggedUser");
+        loadPosts();
+        post.setProfile(loggedUser);
+        post.setWhos_profile(loggedUser);
     }
     
     
+    public void loadPosts(){
+        
+        try {
+            myPostList = postdao.findByProfile(loggedUser.getProfileId());
+            
+            
+        } catch (SQLException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error !","Unable to load user Posts." + ex.getMessage()));
+        }
+    }
+    
+    
+    
+
+    public List<Post> getMyPostList() {
+        return myPostList;
+    }
+
+    public void setMyPostList(List<Post> myPostList) {
+        this.myPostList = myPostList;
+    }
+    
+
     public Post getPost() {
         return post;
     }
@@ -39,11 +75,11 @@ public class PostBean implements Serializable{
     }
 
     public Profile getUser() {
-        return user;
+        return loggedUser;
     }
 
     public void setUser(Profile user) {
-        this.user = user;
+        this.loggedUser = user;
     }
     
     
@@ -55,6 +91,7 @@ public class PostBean implements Serializable{
             PostDao dao = new PostDao();
             
             newPost = dao.add(post);
+            
             content = newPost.getPost_content();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"POSTED!!",""));
         }catch(SQLException e)

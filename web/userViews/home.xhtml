@@ -19,49 +19,58 @@
                         
                    
                         
-                    <div class="container">
+                    <div class="container" >
                         
                         <div class="row">     
-                            <div class="col col-md-6">
-                                
-                                
-                               
+                            <div class="col col-md-6">  
                                 <div class="form-group">
-                                    
                                     <p:inputTextarea value="#{postbean.post.post_content}" placeholder="write a post now" class="form-control"/>
-                                    
-                                       
-                                    
-                                    
                                 </div>             
                             </div>
-                            
-                            
-                            
+            
                             <div class="col col-md-6">
                                 
-                              
-                               
-                                
                             </div>
-                            
-                            
-                           
                         </div>
                         
                         <div class="row">
                             <div class="col col-md-6">
-                            <div class="form-group">
+                            <div class="form-group"> 
+                                <p:commandButton value="add Post" actionListener="#{postbean.addPost()}" styleClass="btn-success">
                                 
+                                    <p:ajax event="click" listener="#{postbean.loadPosts()}" update="repeat"/>
+                                </p:commandButton>    
+                            </div>
+                            </div>
+                       </div>
+                        
+                        
+                        <ui:repeat value="#{postbean.myPostList}" var="post" id="repeat">
                             
+                             <div class="row">
+                              <div class="col col-md-6">
+                              <div class="form-group"> 
+                                  
+                                  <div class="postdiv">
+                                      <img src="./../resources/images/kitty.jpg" width="80px" height="80px" style="border-radius:10px;"/>
+                                      
+                                      
+                                      <h6 style="display:inline;"><p:commandLink value="#{post.profile.firstName} #{post.profile.lastName}"/></h6>
+                                      <small>#{post.post_date}</small>
+                                      <br/>
+                                      #{post.post_content}
+                                      <hr/>
+                                      <p:inputText styleClass="form-control" placeholder="add a comment to this post"/>
+                                  </div>
                                 
-                                <p:commandButton value="add Post" actionListener="#{postbean.addPost()}" styleClass="btn-success"/>
-                                    
-                               
-                                
+                             </div>
                             </div>
-                        </div>
                             </div>
+                        </ui:repeat>
+                        
+                        
+                        
+                        
                         
                         
                         
