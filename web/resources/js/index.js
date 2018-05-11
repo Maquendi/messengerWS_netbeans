@@ -18,3 +18,8 @@ function shrinkback(){
     
     document.getElementById("top").setAttribute("style","margin-left:0%;");
 }
+
+
+function write(){
+    console.log("hey");
+}

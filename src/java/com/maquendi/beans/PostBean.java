@@ -8,13 +8,10 @@ import com.maquendi.theBrain.entities.Profile;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named(value="postbean")
@@ -32,7 +29,8 @@ public class PostBean implements Serializable{
 
     @PostConstruct
     public void init(){
-       
+        
+        
         postdao = new PostDao();
        
         post = new Post();

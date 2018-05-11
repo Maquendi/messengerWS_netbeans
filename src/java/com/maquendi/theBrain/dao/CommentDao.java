@@ -26,22 +26,22 @@ public class CommentDao {
     
     public Comment addCommentToPOST(Parent_Comment comment) throws SQLException{
         
-        String sql = "INSERT INTO comment(profileId,comment,comment_date,comment_type)VALUES(?,?,?,?)";
-       
+        String sql = "INSERT INTO comment(profileId,comment,comment_type)VALUES(?,?,?)";
+        
         Connection conn = conector.connectar();
         try{
             conn.setAutoCommit(false);
             PreparedStatement pst = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1,comment.getProfile().getProfileId());
             pst.setString(2,comment.getContent());
-            pst.setDate(3,new java.sql.Date(comment.getDate().getTime()));
-            pst.setString(4,"P");
+            pst.setString(3,"P");
             pst.executeUpdate();
             ResultSet rs = pst.getGeneratedKeys();
             if(rs.next()){
                 int commentID =rs.getInt(1); 
                 comment.setID(commentID);
                 link_comment_Topost(commentID, comment.getPost().getPostId());
+                comment.setDate(new java.util.Date());
             }
             conn.commit();
         }catch(SQLException e){

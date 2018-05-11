@@ -9,9 +9,16 @@ import java.util.List;
 public class Parent_Comment extends Comment implements Serializable{
     
     private Post post;
+    
     List<Integer> childList = new ArrayList<>();
     
     List<C_Comment> childrenList = new ArrayList<>();
+    
+    
+    public Parent_Comment(){
+        super();
+    }
+    
 
     public List<C_Comment> getChildrenList() {
         return childrenList;

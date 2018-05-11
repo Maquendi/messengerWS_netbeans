@@ -10,6 +10,10 @@ public class C_Comment  extends Comment implements Serializable{
     
 
     private Integer parent;
+    
+    public C_Comment(){
+        super();
+    }
 
     public Integer getParent() {
         return parent;
@@ -19,5 +23,5 @@ public class C_Comment  extends Comment implements Serializable{
         this.parent = parentId;
     }
 
-
+   
 }
