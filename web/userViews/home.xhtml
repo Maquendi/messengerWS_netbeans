@@ -14,14 +14,15 @@
 
             <ui:define name="content">
              
-                <p:messages autoUpdate="true" showDetail="true" showSummary="true"/>
+                <p:growl showDetail="true" showSummary="true"/>
+                
                 <h:form id="frm">     
                     <div class="container-fluid">
                         <div style="min-height:50px;"></div>
                         <div class="row">     
                             <div class="col col-md-8" >  
                                 <div class="form-group" style="background-color:#fff; padding:10px;margin:10px;">
-                                    <p:inputTextarea style="border-radius:15px; font-size:24px; padding-left:30%; padding-top:2%;" value="#{postbean.post.post_content}" placeholder="write a post now" class="form-control"/>
+                                    <p:inputTextarea style="border-radius:15px; font-size:20px; padding-left:3%; padding-top:2%;" value="#{postbean.post.post_content}" placeholder="write a post now" class="form-control"/>
                                 </div>             
                             </div>
             
@@ -32,19 +33,21 @@
                         
                         <div class="row">
                             <div class="col col-md-8">
-                                <div class="form-group" style="padding-left:10px;"> 
+                                <div class="form-group" style="padding-left:25px;"> 
                                 <p:commandButton value="add Post" actionListener="#{postbean.addPost()}" styleClass="btn-outline-primary" update="datatable"/>         
                       </div>
                       </div>
                       </div>
+                      
+                        
+                      
+                      <div class="row">
+                      <div class="col col-md-8">
                       <hr/>
-                        
-                        
                       <h:dataTable id="datatable" value="#{postbean.myPostList}" var="post" width="100%">
                             <h:column >
                               
-                              <div class="row">
-                                  <div class="col col-md-8">
+                              
                               <div class="form-group"> 
                                   
                                   <div class="postdiv">
@@ -77,9 +80,7 @@
                                                     <div class="commentStyle">
                                                         <h:link value=" #{comment.profile.firstName} #{comment.profile.lastName}"/>
                                                         <small>On  <h:outputText value="#{comment.dateAsString}"/> </small>
-                                                        <p:outputLabel value="#{comment.content}"/> 
-                                                        
-                                                        
+                                                        <p:outputLabel value="#{comment.content}"/>  
                                                     </div>
                                                    </ui:repeat>
                                                </div>
@@ -107,15 +108,44 @@
                                        </div> 
                                   </div>
                                 </div>
-                               </div>
-                              </div>    
+                                  
                           </h:column>
                         </h:dataTable>
-                    </div>                 
+                       </div>
+                          
+                          
+                          <div class="col col-md-4" style="padding-left:2px;">                          
+                              <div class="chatdiv">
+                              <div class="panel-group">
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapse1" onclick="colapsar();">
+                                                      Online Contacts
+                                                  </button>
+                                              </h4>
+                                          </div>
+                                          <div id="collapse1" collapsed="false" class="panel-collapse collapse">
+                                              <div >
+                                                  <ui:repeat value="#{profilebean.list}" var="prof">
+                                                      <div class="panel-body" id="divo">
+                                                      <small>
+                                                          <p:graphicImage library="images" name="kitty.jpg" width="45" height="45"
+                                                                          style="border-radius: 10px;"/>
+                                                          <p:commandLink style="text-decoration:none;" styleClass="chatLink" value="#{prof.firstName} #{prof.lastName}"/>
+                                                      </small>
+                                                  </div>
+                                              </ui:repeat>  
+                                              </div>                                 
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>    
+                          </div>  
+                     </div>
+                  </div>                 
                 </h:form>             
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

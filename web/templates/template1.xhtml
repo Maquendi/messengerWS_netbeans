@@ -27,7 +27,7 @@
               
                     <div class="row" style="width:100%">
                         <div class="col col-sm-4">                    
-                            <p:commandLink value="Menu"  oncomplete="PF('sidebar1').show()"/>          
+                            <p:commandLink value="Menu"/>          
                         </div>
 
                         <div class="col col-md-4" style="margin-left:15%;">
@@ -63,15 +63,13 @@
                 <ui:insert name="left">
                     <h:form>
                         
-                        
-                        
-                        <p:sidebar widgetVar="sidebar1" baseZIndex="10000" style="margin-top:3.5%;">
-                            <h1 style="font-weight:normal">Left Sidebar</h1>
-                            <p:commandButton value="Cancel" oncomplete="PF('sidebar1').hide()"/>
-                        </p:sidebar>
-
-                        
-                       
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <div class="picture">
+                                     <p:graphicImage library="images" name="kitty.jpg" width="200" height="200"/>
+                                </div>
+                            </div>
+                        </div>  
                     </h:form>
                 </ui:insert>
             </div>

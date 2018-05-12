@@ -137,3 +137,37 @@
     background-color:#fff;
     
 }
+
+.picture{
+    border:2px solid orange;
+    margin:10px;
+    padding-left:45px;
+    padding-top:20px;
+    padding-bottom:20px;
+    border-radius:10px;
+    background-color: #696969;
+   
+}
+
+.chatdiv{
+    
+    
+    height:100%;
+    border-left:1px solid gray;
+    width:24%;
+    position:fixed;
+    top:50px;
+}
+
+#divo{
+    margin:3px;
+    padding:5px;
+}
+
+.chatLink:hover{
+    
+}
+
+.chatLink{
+    
+}

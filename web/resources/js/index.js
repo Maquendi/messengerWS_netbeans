@@ -77,8 +77,18 @@ function processar(boton){
     newDiv.appendChild(document.createTextNode("HOLA MUNDO JAVASCRIPT"));
     div.appendChild(newDiv);*/
     
-    
+ var num = 1;   
 
+function colapsar(){
+  var div = document.getElementsByClassName("chatdiv")[0];
+   
+   if((num%2) === 0){
+       div.setAttribute("style","top:600px");
+   }else{
+       div.setAttribute("style","top:50px");
+   }
+   num++;  
+}
 
 
 
