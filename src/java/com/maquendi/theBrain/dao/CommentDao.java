@@ -3,7 +3,6 @@ package com.maquendi.theBrain.dao;
 
 import com.maquendi.theBrain.entities.C_Comment;
 import com.maquendi.theBrain.entities.Comment;
-import com.maquendi.theBrain.entities.Post;
 import com.maquendi.theBrain.entities.Parent_Comment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ public class CommentDao {
     }
     
     
-    public Comment addCommentToPOST(Parent_Comment comment) throws SQLException{
+    public Comment addCommentToPOST(Parent_Comment comment,Integer postId) throws SQLException{
         
         String sql = "INSERT INTO comment(profileId,comment,comment_type)VALUES(?,?,?)";
         
@@ -40,8 +39,8 @@ public class CommentDao {
             if(rs.next()){
                 int commentID =rs.getInt(1); 
                 comment.setID(commentID);
-                link_comment_Topost(commentID, comment.getPost().getPostId());
-                comment.setDate(new java.util.Date());
+                link_comment_Topost(commentID,postId);
+                comment.setComment_date(new java.util.Date());
             }
             conn.commit();
         }catch(SQLException e){
@@ -103,9 +102,7 @@ public class CommentDao {
                 
                 parent.setContent(rs.getString("comment"));
                 parent.setID(rs.getInt("commentId"));
-                parent.setDate(new java.util.Date(rs.getDate("comment_date").getTime()));
-                parent.setProfile(pDao.find(rs.getInt("profileId")));
-                parent.setPost(postdao.find(parent.getID())); //el post puede ser nulo....
+                parent.setComment_date(new java.util.Date(rs.getTimestamp("comment_date").getTime()));
                 parent.setProfile(pDao.find(rs.getInt("profileId")));
             }
         }catch(SQLException e){
@@ -144,7 +141,7 @@ public class CommentDao {
                Comment co = new Comment();
                co.setContent(rs.getString("comment"));
                co.setID(rs.getInt("commentId"));
-               co.setDate(new java.util.Date(rs.getDate("comment_date").getTime()));
+               co.setComment_date(new java.util.Date(rs.getTimestamp("comment_date").getTime()));
                co.setProfile(pDao.find(rs.getInt("profileId")));
                lista.add(co);
            }
@@ -157,17 +154,16 @@ public class CommentDao {
     }
     
     
-    public List<Parent_Comment> findAllParentComments(Post post) throws SQLException{
+    public List<Parent_Comment> findAllParentComments(Integer postId) throws SQLException{
         
         String query = "SELECT * FROM comment co INNER JOIN post_comment pc on co.commentId = pc.commentId WHERE CO.comment_type = ? AND PC.postId = ?";
         ProfileDao pDao = new ProfileDao();
-        PostDao postDao = new PostDao();
         List<Parent_Comment> lista = new ArrayList<>();
         
         try{
             PreparedStatement pst = conector.connectar().prepareStatement(query);
             pst.setString(1,"P");
-            pst.setInt(2,post.getPostId());
+            pst.setInt(2,postId);
             
             ResultSet rs = pst.executeQuery();
 
@@ -176,18 +172,20 @@ public class CommentDao {
                 Parent_Comment parent = new Parent_Comment();
                 parent.setContent(rs.getString("comment"));
                 parent.setID(rs.getInt("commentId"));
-                parent.setDate(new java.util.Date(rs.getDate("comment_date").getTime()));
+                parent.setComment_date(new java.util.Date(rs.getTimestamp("comment_date").getTime()));
                 parent.setProfile(pDao.find(rs.getInt("profileId")));
                 parent.setChildrenList(findChildren(parent.getID()));
-                parent.setPost(post);
                 lista.add(parent);
             }
-
+           
+            
         }catch(SQLException e){
             throw e;
         }finally{
             conector.desconectar();
         }
+        
+       
         
         return lista;
         
@@ -223,7 +221,7 @@ public class CommentDao {
               C_Comment child = new C_Comment();
                child.setID(rs.getInt("commentId"));
                child.setContent(rs.getString("comment"));
-               child.setDate(new java.util.Date(rs.getDate("date_created").getTime()));
+               child.setComment_date(new java.util.Date(rs.getTimestamp("date_created").getTime()));
                child.setParent(parentId);
                childList.add(child);
             }
@@ -231,7 +229,7 @@ public class CommentDao {
         }catch(SQLException e){
             throw e;
         }finally{
-            conector.desconectar();
+           // conector.desconectar();
         }
         
         return childList; 

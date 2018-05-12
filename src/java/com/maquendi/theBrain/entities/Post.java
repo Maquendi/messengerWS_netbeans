@@ -2,8 +2,10 @@
 package com.maquendi.theBrain.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 import java.util.Date;
+import java.util.List;
 
 
 public class Post implements Serializable{
@@ -13,8 +15,45 @@ public class Post implements Serializable{
     private Profile whos_profile;
     private String post_content;
     private Date date_created;
+    private String dateAsString;
+
+    public String getDateAsString() {
+        
+        setDateAsString("");
+        return dateAsString;
+    }
+
+    public void setDateAsString(String dateAsString) {
+        
+        SimpleDateFormat formatdate = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        this.dateAsString = formatdate.format(date_created);
+    }
+    
+    
+    
+    
+    
+    
+    private List<Parent_Comment> lista_comentarios;
+
+    public Date getDate_created() {
+        return date_created;
+    }
+
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
+    }
+
+    public List<Parent_Comment> getLista_comentarios() {
+        return lista_comentarios;
+    }
+
+    public void setLista_comentarios(List<Parent_Comment> lista_comentarios) {
+        this.lista_comentarios = lista_comentarios;
+    }
 
    
+    
     
     
     public Integer getPostId() {

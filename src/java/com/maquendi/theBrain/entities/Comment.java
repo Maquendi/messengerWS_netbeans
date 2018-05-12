@@ -3,6 +3,7 @@ package com.maquendi.theBrain.entities;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,6 +14,22 @@ public class Comment{
     protected Profile profile;
     protected Date comment_date;
     protected String content;
+    private String dateAsString;
+    
+    
+
+    public String getDateAsString() {
+        
+        setDateAsString("");
+        return dateAsString;
+    }
+
+    public void setDateAsString(String dateAsString) {
+        
+        SimpleDateFormat formatdate = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        this.dateAsString = formatdate.format(comment_date);
+    }
+    
 
     public String getContent() {
         return content;
@@ -39,15 +56,26 @@ public class Comment{
         this.profile = profile;
     }
 
- 
-    public Date getDate() {
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public Date getComment_date() {
         return comment_date;
     }
 
-    public void setDate(Date date) {
-        this.comment_date = date;
+    public void setComment_date(Date comment_date) {
+        this.comment_date = comment_date;
     }
 
+ 
+   
+    
+    
 
     @Override
     public int hashCode() {

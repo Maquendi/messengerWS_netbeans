@@ -15,13 +15,13 @@
             <ui:define name="content">
              
                 <p:messages autoUpdate="true" showDetail="true" showSummary="true"/>
-                <h:form>     
+                <h:form id="frm">     
                     <div class="container-fluid">
-                        
+                        <div style="min-height:50px;"></div>
                         <div class="row">     
-                            <div class="col col-md-8">  
-                                <div class="form-group">
-                                    <p:inputTextarea value="#{postbean.post.post_content}" placeholder="write a post now" class="form-control"/>
+                            <div class="col col-md-8" >  
+                                <div class="form-group" style="background-color:#fff; padding:10px;margin:10px;">
+                                    <p:inputTextarea style="border-radius:15px; font-size:24px; padding-left:30%; padding-top:2%;" value="#{postbean.post.post_content}" placeholder="write a post now" class="form-control"/>
                                 </div>             
                             </div>
             
@@ -32,22 +32,19 @@
                         
                         <div class="row">
                             <div class="col col-md-8">
-                            <div class="form-group"> 
-                                <p:commandButton value="add Post" actionListener="#{postbean.addPost()}" styleClass="btn-outline-primary"/>
-                                
-                                    
-                                 
+                                <div class="form-group" style="padding-left:10px;"> 
+                                <p:commandButton value="add Post" actionListener="#{postbean.addPost()}" styleClass="btn-outline-primary" update="datatable"/>         
                       </div>
                       </div>
                       </div>
                       <hr/>
                         
                         
-                        <h:dataTable value="#{postbean.myPostList}" var="post" width="100%">
-                            <h:column>
-                            
-                             <div class="row">
-                              <div class="col col-md-8">
+                      <h:dataTable id="datatable" value="#{postbean.myPostList}" var="post" width="100%">
+                            <h:column >
+                              
+                              <div class="row">
+                                  <div class="col col-md-8">
                               <div class="form-group"> 
                                   
                                   <div class="postdiv">
@@ -55,7 +52,7 @@
                                       
                                       
                                       <h6 style="display:inline;"><p:commandLink value="#{post.profile.firstName} #{post.profile.lastName}"/></h6>
-                                      <small>#{post.post_date}</small>
+                                      <small>On #{ post.dateAsString}</small>
                                       <br/>
                                        <h:outputText value="#{post.post_content}"/>
                                         
@@ -66,7 +63,7 @@
                                                <img src="./../resources/images/thumbsUp.png" />
                                            </p:commandButton>
                                            
-                                           
+                                         
                                            <p:commandButton value="Comment" icon="fa-dashcube" style="background-color:transparent; border:none;"/>
                                            
                                        </h:panelGrid>                                    
@@ -75,31 +72,39 @@
                                           <div class="row">
                                            <div class="col col-md-10">
                                                
-                                               <p:commandLink  value="#{post.profile.firstName} #{post.profile.lastName}"/>
-                                               <h:outputText id="showComment" value="#{commentBean.savedComment}"/>
-                                                
+                                               <div class="commentContainer"> 
+                                                   <ui:repeat value="#{post.lista_comentarios}" var="comment">                                                
+                                                    <div class="commentStyle">
+                                                        <h:link value=" #{comment.profile.firstName} #{comment.profile.lastName}"/>
+                                                        <small>On  <h:outputText value="#{comment.dateAsString}"/> </small>
+                                                        <p:outputLabel value="#{comment.content}"/> 
+                                                        
+                                                        
+                                                    </div>
+                                                   </ui:repeat>
+                                               </div>
                                            </div>                                 
                                           </div>
                                        
                                        <hr/>
                                        <div class="row">
                                            <div class="col col-md-9">
-                                               <p:inputText value="#{commentBean.pComment.content}" styleClass="form-control" placeholder="add a comment to this post">
-                                                   <p:ajax  event="keyup" listener="#{commentBean.addComment()}"/>
+                                               <p:inputText  value="#{commentBean.pComment.content}" styleClass="form-control" placeholder="add a comment to this post">
+                                                   <p:ajax  event="change" listener="#{commentBean.addComment()}" update="frm:datatable"/>
                                                </p:inputText>
+                                               
+                                               
+                                               
                                                
                                            </div>
                                            
                                            <div class="col col-md-2">
-                                               <p:commandButton  styleClass="btn-outline-info" value="Add" actionListener="#{commentBean.addParentComment()}" update="showComment">                               
-                                                   <p:ajax event="click" listener="#{commentBean.addPost(post)}" />
+                                               <p:commandButton styleClass="btn-outline-info agregarbtn" value="Add" 
+                                                                actionListener="#{commentBean.addParentComment(postbean)}" update="frm:datatable">                               
+                                                   <p:ajax event="click" listener="#{commentBean.addPost(post)}"/>      
                                                </p:commandButton>
                                            </div>                                         
-                                       </div>
-                                       
-                                     
-                                       
-                                       
+                                       </div> 
                                   </div>
                                 </div>
                                </div>

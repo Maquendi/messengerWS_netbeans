@@ -118,11 +118,22 @@
 .postdiv{
     
     
-    background-color: #fff; 
+    background-color:#F0F8FF; 
     border-radius:5px; 
     margin-top: 8px;
     padding-top: 5px;
     padding-bottom:10px;
     padding-right: 5px;
     padding-left: 5px;
+}
+
+
+.commentStyle{
+    
+    
+    border-radius:10px;
+    margin-top:10px;
+    padding:6px;
+    background-color:#fff;
+    
 }

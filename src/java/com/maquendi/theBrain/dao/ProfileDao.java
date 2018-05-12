@@ -41,7 +41,7 @@ public class ProfileDao {
             }catch(SQLException e){
               throw e;
          }finally{
-            connector.desconectar();
+            //connector.desconectar();
         }
          return profile;
     }

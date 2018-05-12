@@ -8,9 +8,7 @@ import java.util.List;
 
 public class Parent_Comment extends Comment implements Serializable{
     
-    private Post post;
-    
-    List<Integer> childList = new ArrayList<>();
+
     
     List<C_Comment> childrenList = new ArrayList<>();
     
@@ -28,23 +26,6 @@ public class Parent_Comment extends Comment implements Serializable{
         this.childrenList = childrenList;
     }
     
-    
-    
- 
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    public List<Integer> getChildList() {
-        return childList;
-    }
-
-    public void setChildList(List<Integer> childList) {
-        this.childList = childList;
-    }
+   
     
 }

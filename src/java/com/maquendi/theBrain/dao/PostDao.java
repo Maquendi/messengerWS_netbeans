@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,23 +57,28 @@ public class PostDao {
      public List<Post> findByProfile(Integer profileId) throws SQLException{
          
          List<Post> lista = new ArrayList<>();
-         String query = "SELECT * FROM post WHERE profileId = ?";
+         String query = "SELECT * FROM post WHERE profileId = ? AND whos_profile = ?";
+         
+         
          
          try{
-             
+             Post po = null;
              PreparedStatement pst = conn.connectar().prepareStatement(query);
              pst.setInt(1,profileId);
+             pst.setInt(2,profileId);
              ProfileDao pDao = new ProfileDao();
+             CommentDao dao = new CommentDao();
              ResultSet rs = pst.executeQuery();
              
              while(rs.next())
              {
-               Post po = new Post();
+               po = new Post();
                po.setPostId(rs.getInt("postId"));
                po.setPost_content(rs.getString("post_content"));
                po.setProfile(pDao.find(rs.getInt("profileId")));
                po.setWhos_profile(pDao.find(rs.getInt("whos_profile")));
                po.setPost_date(new java.util.Date(rs.getTimestamp("date_created").getTime()));
+               po.setLista_comentarios(dao.findAllParentComments(rs.getInt("postId")));
                lista.add(po);
              }
              

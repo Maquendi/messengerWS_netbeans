@@ -50,6 +50,14 @@
     </navigation-rule>
     
     
+     <navigation-rule>
+        <from-view-id>/userViews/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>refresh</from-outcome>
+            <to-view-id>/userViews/home.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
+    </navigation-rule>
     
     
     

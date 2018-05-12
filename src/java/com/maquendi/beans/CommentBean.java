@@ -9,6 +9,7 @@ import com.maquendi.theBrain.entities.Post;
 import com.maquendi.theBrain.entities.Profile;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -24,8 +25,24 @@ public class CommentBean implements Serializable{
     private Parent_Comment pComment;
     private C_Comment cComment;
     private Comment comment;
+    private Post post;
     private String comentario;
     private String savedComment;
+    
+    
+    private List<Parent_Comment> commentList;
+
+    public List<Parent_Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Parent_Comment> commentList) {
+        this.commentList = commentList;
+    }
+    
+    
+    
+    
 
     public String getComentario() {
         return comentario;
@@ -87,21 +104,22 @@ public class CommentBean implements Serializable{
 
     
    
-    
-    public void addParentComment(){
+     
+    public void addParentComment(PostBean bean){
         
         pComment.setContent(comentario);
         CommentDao dao = new CommentDao();
+        
       
         
         try{
-           Comment c = dao.addCommentToPOST(pComment);
-           
-           savedComment = c.getContent();
-            
+             Comment c = dao.addCommentToPOST(pComment,post.getPostId());
+             savedComment = c.getContent();
+             bean.loadPosts();
         }catch(SQLException | NullPointerException e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"error","SQL Exception: " + e));
-        }     
+        }  
+        
     }
     
    
@@ -110,8 +128,28 @@ public class CommentBean implements Serializable{
     }
     
     
-   public void addPost(Post posts){
-      this.pComment.setPost(posts);
+   public void addPost(Post p){
+      this.post = p;
    }
-    
+   
+   
+   
+   
+   public void loadComments(Post p){
+      
+       CommentDao dao = new CommentDao();
+       this.post = p;
+       
+       try{
+           
+          commentList = dao.findAllParentComments(post.getPostId());         
+          post.setLista_comentarios(commentList);
+
+       }catch(SQLException e){
+           System.out.println("error: "+ e.getMessage());
+       }
+       
+       
+   }
+   
 }

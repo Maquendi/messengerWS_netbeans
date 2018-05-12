@@ -7,6 +7,7 @@ import com.maquendi.theBrain.entities.Post;
 import com.maquendi.theBrain.entities.Profile;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -44,9 +45,8 @@ public class PostBean implements Serializable{
     public void loadPosts(){
         
         try {
-            myPostList = postdao.findByProfile(loggedUser.getProfileId());
-            
-            
+            myPostList = postdao.findByProfile(loggedUser.getProfileId()); 
+            Collections.reverse(myPostList);
         } catch (SQLException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error !","Unable to load user Posts." + ex.getMessage()));
         }
@@ -83,15 +83,13 @@ public class PostBean implements Serializable{
     
     public String addPost(){
         String content="";
-        Post newPost = null;
+        
 
         try{
             PostDao dao = new PostDao();
-            
-            newPost = dao.add(post);
-            
+            Post newPost = dao.add(post);
+            this.loadPosts();
             content = newPost.getPost_content();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"POSTED!!",""));
         }catch(SQLException e)
         {
             System.out.println("error "+e.getMessage());
