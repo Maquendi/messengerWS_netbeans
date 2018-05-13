@@ -16,6 +16,7 @@
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <title>Facelets Template</title>
         <f:event type="preRenderView" listener="#{validateBean.verify()}"/> 
+        
     </h:head>
 
     <h:body>
@@ -23,26 +24,93 @@
 
         <div id="top" >
             <ui:insert name="top">  
+                <p:growl showDetail="true" showSummary="true"/>
                 <h:form styleClass="form-inline">
               
                     <div class="row" style="width:100%">
-                        <div class="col col-sm-4">                    
-                            <p:commandLink value="Menu"/>          
-                        </div>
+                        
+                        <div class="col col-sm-6" style="border-right:2px solid black;"> 
+                            
+                            <div class="col-lg-9"> 
+                                <div class="input-group form-group">
+                                    <p:inputText value="#{profilebean.query}" placeholder="search contacts" styleClass="form-control"
+                                                 onfocus="PF('dlg1').show()">
+                                        <p:ajax event="keyup" listener="#{profilebean.search()}" update="seachTable seachTable:link"/>  
+                                    </p:inputText> 
+                                         <span>
+                                             <div class="input-group form-group">
+                                                 <p:commandButton icon="fa fa-search" class="btn btn-outline-dark" 
+                                                                  style="height:36px; color:white; text-align:center;"/>
+                                             </div>
+                                         </span>
+                                </div>
+                               
+                                        
+                                        
+                                   
+                                
+                            </div><!-- /.col-lg-6 -->
+                            
+                            
 
-                        <div class="col col-md-4" style="margin-left:15%;">
+                            <p:dialog  showHeader="false" widgetVar="dlg1" minHeight="40" position="30,40" width="30%">     
+                                <hr/>       
+                                <h:dataTable id="seachTable" width="100%" summary="Search results." value="#{profilebean.foundList}" var="prof" onmouseover="PF('dlg1').show()">
+                                    <h:column>
+                                        <div style="margin-top:5px; padding-top:5px; padding-bottom:5px;" id="divo">
+                                            <p:commandLink  style="text-decoration:none; color:grey;" id="link" 
+                                                            action="#{profilebean.redirect()}" value="#{prof.firstName} #{prof.lastName}" oncomplete="PF('dlg1').hide()">
+                                                
+                                                <f:setPropertyActionListener target="#{profilebean.prof}" value="#{prof}"/>
+                                            </p:commandLink>
+                                            
+                                        </div>
+                                    </h:column>   
+                                </h:dataTable>
+                                <hr/>
+                            </p:dialog>
                             
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+                        <div class="col col-md-3 menuDiv" style="padding-top:2px; border-right:2px solid black;">
+                            
+                             
                         <div class="btn-group">
-                            <p:commandLink value="#{userSession.user.firstName}  #{userSession.user.lastName}" styleClass="btn btn-outline-success" style="margin-left:60%;"/>
+                            <p:graphicImage library="images" name="kitty.jpg" width="35" height="35" style="border-radius:15px; margin-right:2px;"/>
+                            <p:commandLink styleClass="" action="#{profilebean.home()}" value="#{userSession.user.firstName}"/>
                         </div>
-                            
                         </div>
                         
                         
-                         <div class="col col-sm-2">
-                             <p:commandButton action="#{validateBean.logout()}" value="Sign Out" styleClass="btn btn-outline-primary" style="width:60%; margin-top:2%; float:right;"/>      
-                        </div>  
+                        
+                        <div class="col col-md-2 menuDiv" style="padding-top:2px;"> 
+                         
+                            <div class="btn-group">
+                             <p:commandLink   value="Home"/>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col col-sm-1" style="border-left:2px solid black;">
+                             <div class="btn-group">
+                             <p:commandLink action="#{validateBean.logout()}" value="Sign Out" styleClass="btn btn-outline-primary"/>      
+                              </div> 
+                          </div>
                         
                     </div>
                     
@@ -66,7 +134,7 @@
                         <div class="row">
                             <div class="col col-md-12">
                                 <div class="picture">
-                                     <p:graphicImage library="images" name="kitty.jpg" width="200" height="200"/>
+                                    <p:graphicImage styleClass="imagen" library="images" name="kitty.jpg"/>
                                 </div>
                             </div>
                         </div>  

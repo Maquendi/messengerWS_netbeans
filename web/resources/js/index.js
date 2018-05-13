@@ -83,14 +83,16 @@ function colapsar(){
   var div = document.getElementsByClassName("chatdiv")[0];
    
    if((num%2) === 0){
-       div.setAttribute("style","top:600px");
+       div.setAttribute("style","top:583px");
    }else{
-       div.setAttribute("style","top:50px");
+       div.setAttribute("style","top:55px");
    }
    num++;  
 }
 
 
 
-
+function css(){
+    
+}
 

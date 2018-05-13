@@ -1,12 +1,27 @@
 
 #top {
-    position: relative;
+    position:fixed;
+    top:0px;
+    z-index:1;
+    width:100%;
     background-color:#696969;
     color: white;
     padding: 5px;
     margin: 0px 0px 0px 0px;
     padding-left:15px;
 }
+
+
+#top2 {
+    position: relative;
+    background-color:#696969;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 5px 0px;
+   
+}
+
+
 
 #bottom {
     position: relative;
@@ -17,14 +32,25 @@
 
 #left {
     float: left;
-    padding: 5px;
+    padding:5px 5px 0px 5px;
+    
     width: 320px;
-    margin-left:1px;
     height:100vh;
     position: fixed;
-    top:50px;
+    top:48px;
+    background-color:#696969;
+}
+
+
+#left2 {
+    float: left;
+    padding: 5px;
+    width: 150px;
     background-color:#dddddd;
 }
+
+
+
 
 #right {
     float: right;
@@ -32,6 +58,17 @@
     padding: 5px;
     width: 150px;
 }
+
+
+#right2 {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+
+
 
 .center_content {
     position: relative;
@@ -41,18 +78,26 @@
 }
 
 .left_content {
-    background-color:#fff;
-    
+    background-color:#f5f5f0;
     padding: 5px;
-    margin-left:350px;
-    margin-top:1px;
+    margin-left:320px;
+    margin-top:45px;
 }
 
 .right_content {
+    background-color: yellow;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+
+
+.right_content2 {
     background-color: #dddddd;
     padding: 5px;
     margin: 0px 170px 0px 170px;
 }
+
+
 
 #top a:link, #top a:visited {
   color: white;

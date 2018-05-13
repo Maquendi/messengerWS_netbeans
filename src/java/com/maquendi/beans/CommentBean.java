@@ -28,7 +28,36 @@ public class CommentBean implements Serializable{
     private Post post;
     private String comentario;
     private String savedComment;
+    private Profile loggedUser;
+    private Profile visited_profile;
     
+    
+    @PostConstruct
+    public void init(){
+        
+        pComment = new Parent_Comment();
+        loggedUser = (Profile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loggedUser");
+        pComment.setProfile(loggedUser);
+        cComment = new C_Comment();
+    }
+    
+    
+
+    public Profile getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(Profile loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+
+    public Profile getVisited_profile() {
+        return visited_profile;
+    }
+
+    public void setVisited_profile(Profile visited_profile) {
+        this.visited_profile = visited_profile;
+    }
     
     private List<Parent_Comment> commentList;
 
@@ -92,41 +121,27 @@ public class CommentBean implements Serializable{
     
 
 
-    @PostConstruct
-    public void init(){
-        
-        pComment = new Parent_Comment();
-        
-        Profile prof = (Profile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loggedUser");
-        pComment.setProfile(prof);
-        cComment = new C_Comment();
-    }
 
     
    
      
-    public void addParentComment(PostBean bean){
+    public void addParentComment(PostBean postbean){
         
         pComment.setContent(comentario);
         CommentDao dao = new CommentDao();
-        
-      
-        
         try{
              Comment c = dao.addCommentToPOST(pComment,post.getPostId());
              savedComment = c.getContent();
-             bean.loadPosts();
+             postbean.loadPosts(post.getProfile());
         }catch(SQLException | NullPointerException e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"error","SQL Exception: " + e));
         }  
         
     }
     
-   
     public void addComment(){
         comentario = pComment.getContent();
     }
-    
     
    public void addPost(Post p){
       this.post = p;

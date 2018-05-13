@@ -57,15 +57,12 @@ public class PostDao {
      public List<Post> findByProfile(Integer profileId) throws SQLException{
          
          List<Post> lista = new ArrayList<>();
-         String query = "SELECT * FROM post WHERE profileId = ? AND whos_profile = ?";
-         
-         
-         
+         String query = "SELECT * FROM post WHERE whos_profile = ?";
+ 
          try{
              Post po = null;
              PreparedStatement pst = conn.connectar().prepareStatement(query);
              pst.setInt(1,profileId);
-             pst.setInt(2,profileId);
              ProfileDao pDao = new ProfileDao();
              CommentDao dao = new CommentDao();
              ResultSet rs = pst.executeQuery();
