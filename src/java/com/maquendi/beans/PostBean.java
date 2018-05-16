@@ -4,11 +4,13 @@ package com.maquendi.beans;
 
 import com.maquendi.theBrain.dao.PostDao;
 import com.maquendi.theBrain.entities.Post;
+import com.maquendi.theBrain.entities.PostLike;
 import com.maquendi.theBrain.entities.Profile;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,6 +28,8 @@ public class PostBean implements Serializable{
     private Profile loggedUser;
     private Profile profile;
 
+ 
+    
     public List<Post> getVisited_post_list() {
         return visited_post_list;
     }
@@ -57,10 +61,8 @@ public class PostBean implements Serializable{
     public void loadmyPosts(){
         profile = null;
         post.setWhos_profile(loggedUser);
-        if(myPostList == null){
-            loadPosts(loggedUser);
-         
-        } 
+        loadPosts(loggedUser);
+          
     }
     
     
@@ -70,6 +72,7 @@ public class PostBean implements Serializable{
         
        try {
             myPostList = postdao.findByProfile(prof.getProfileId()); 
+            setPostState(myPostList);
             Collections.reverse(myPostList);
         } catch (SQLException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error !","Unable to load user Posts." + ex.getMessage()));
@@ -113,15 +116,11 @@ public class PostBean implements Serializable{
         try{
             PostDao dao = new PostDao();
             dao.add(post);
-            System.out.println(post);
+          
             if(this.profile == null){
                 this.loadPosts(loggedUser);
-                System.out.println("added post in my own profile.");
-                System.out.println(post);
             }else{
                 loadPosts(this.profile);
-                System.out.println("added post in other profile.");
-                System.out.println(post);
             }
            
         }catch(SQLException e)
@@ -144,11 +143,48 @@ public class PostBean implements Serializable{
              try{
                  visited_post_list = this.postdao.findByProfile(prof.getProfileId());
                  Collections.reverse(visited_post_list);
+                 setPostState(visited_post_list);
              }catch(SQLException e){
                  System.out.println("error: " + e.getMessage());
              }
              
           } 
        
+       
+         public void setPostState(List<Post> lista){
+             
+             List<PostLike> likeList;
+  
+             for(Post p : lista){
+                 
+                likeList = p.getListaLikes();
+                 for(PostLike like : likeList){
+                    if(Objects.equals(like.getLike().getProfile().getProfileId(), loggedUser.getProfileId())){
+                        
+                        p.setState(1);
+                        p.setStyleClass("btnClicked");
+                    }     
+                 }
+                 
+             }
+             
+         }
+         
+         
+         
+         
+         public void deletePost(Post post){
+             
+            
+             
+             
+          try{
+                 PostDao dao = new PostDao();
+                 dao.delete(post.getPostId());
+                 
+             }catch(SQLException e){
+                 //some cool thing here...
+             }
+         }
     
 }

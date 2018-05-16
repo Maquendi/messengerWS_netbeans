@@ -7,16 +7,17 @@ import java.util.Objects;
 
 public class PostLike implements Serializable {
     
-    private Post post;
+    private Integer postId;
     private Like like;
 
-    public Post getPost() {
-        return post;
+    public Integer getPostId() {
+        return postId;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
+
 
     public Like getLike() {
         return like;
@@ -29,8 +30,7 @@ public class PostLike implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.post);
-        hash = 97 * hash + Objects.hashCode(this.like);
+        hash = 47 * hash + Objects.hashCode(this.postId);
         return hash;
     }
 
@@ -46,10 +46,7 @@ public class PostLike implements Serializable {
             return false;
         }
         final PostLike other = (PostLike) obj;
-        if (!Objects.equals(this.post, other.post)) {
-            return false;
-        }
-        if (!Objects.equals(this.like, other.like)) {
+        if (!Objects.equals(this.postId, other.postId)) {
             return false;
         }
         return true;
@@ -57,8 +54,8 @@ public class PostLike implements Serializable {
 
     @Override
     public String toString() {
-        return "PostLike{" + "post=" + post + ", like=" + like + '}';
+        return "PostLike{" + "postId=" + postId + ", like=" + like + '}';
     }
-    
-    
+
+
 }

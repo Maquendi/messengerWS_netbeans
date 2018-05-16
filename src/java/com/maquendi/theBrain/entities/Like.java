@@ -12,7 +12,8 @@ public class Like implements Serializable{
     private Profile profile;
     private Date like_date;
     private char tipo_like;
-
+  
+    
     public Integer getLikeId() {
         return likeId;
     }

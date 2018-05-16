@@ -16,6 +16,40 @@ public class Post implements Serializable{
     private String post_content;
     private Date date_created;
     private String dateAsString;
+    private List<PostLike> listaLikes;
+    private int state = 0;
+    private String styleClass = "btnNotClicked";
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
+    }
+    
+
+    
+    
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+    
+    
+    public List<PostLike> getListaLikes() {
+        return listaLikes;
+    }
+
+    public void setListaLikes(List<PostLike> listaLikes) {
+        this.listaLikes = listaLikes;
+    }
+    
+    
+    
 
     public String getDateAsString() {
         
@@ -123,10 +157,8 @@ public class Post implements Serializable{
 
     @Override
     public String toString() {
-        return "Post{" + "postId=" + postId + ", profile=" + profile + ", whos_profile=" + whos_profile + ", post_content=" + post_content + ", post_date=" + date_created + '}';
+        return "Post{" + "postId=" + postId + ", profile=" + profile + ", whos_profile=" + whos_profile + ", post_content=" + post_content + ", date_created=" + date_created + ", dateAsString=" + dateAsString + ", listaLikes=" + listaLikes + ", state=" + state + ", styleClass=" + styleClass + ", lista_comentarios=" + lista_comentarios + '}';
     }
-    
-    
-    
-    
+
+
 }

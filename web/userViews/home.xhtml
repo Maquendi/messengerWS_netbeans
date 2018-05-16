@@ -15,10 +15,13 @@
 
             <ui:define name="content">
              
+                <p:messages id="errorMessages" showDetail="true" showSummary="true" showIcon="false"/>
                 <f:event listener="#{postbean.loadmyPosts()}" type="preRenderView"/>
                   <h:form id="frm">     
                     <div class="container-fluid">
-                      <div style="min-height:50px;"></div>
+                        <div style="min-height:50px;">
+                            
+                        </div>
                         
                         <div class="row">     
                             <div class="col col-md-8" >  
@@ -27,7 +30,7 @@
                                         <hr/> 
 
                                         <p:dialog widgetVar="dlg2" modal="true" width="700"
-                                                  showHeader="false" position="350,100" style="padding:0px; background-color:#F0F8FF;">
+                                                  showHeader="false" position="325,100" style="padding:0px; background-color:#F0F8FF;">
 
                                             <div style="background-color:#F0F8FF;">
                                                 <p:inputTextarea  styleClass="form-control" cols="6" value="#{postbean.post.post_content}">
@@ -70,11 +73,15 @@
                             </div>
                         </div>
                       
+                        <p:commandButton update="datatable" value="." style="background-color:transparent; border:none;" /> 
                         
                       
                       <div class="row">
                       <div class="col col-md-8">
                       <hr/>
+                 
+                          
+                      
                       <h:dataTable id="datatable" value="#{postbean.myPostList}" var="post" width="100%">
                             <h:column >
                               
@@ -84,21 +91,64 @@
                                   <div class="postdiv">
                                       <img src="./../resources/images/kitty.jpg" width="80px" height="80px" style="border-radius:10px;"/>
                                       
+                                      <div>
+                                      <h6 style="display:inline;"><p:commandLink value="#{post.profile.firstName} #{post.profile.lastName}"/>
                                       
-                                      <h6 style="display:inline;"><p:commandLink value="#{post.profile.firstName} #{post.profile.lastName}"/></h6>
-                                      <small>On #{ post.dateAsString}</small>
+                                      </h6>
+                                      
+                                      <small style="margin-right:10px;">On #{ post.dateAsString}</small>
+                                       <p:commandButton id="btnEdit" styleClass="btnNotClicked" style="border-radius:25px;" icon="fa fa-ellipsis-h"/>
+                                       
+                                      </div>
+                                      
+                                      <div id="editdiv" style="padding-top:100px;">
+                                          <p:overlayPanel for="btnEdit" style="width:250px;" hideEffect="fade" 
+                                                          dismissable="true" my="right top" at="right bottom">
+                            
+                                             
+                                              <div id="divo">
+                                                  <p:commandLink value="Edit" />
+                                              </div>
+                                         
+                                         
+                                              <div id="divo">
+                                                <p:commandLink value="Delete" actionListener="#{postbean.deletePost(post)}"/>
+                                               </div>
+                                          
+                                              <div id="divo">
+                                                <p:commandLink value="Report"/>
+                                              </div>
+                                           
+                                      </p:overlayPanel>
+                                      
+                                      </div>
+                                      
+                                      
+                                      
+                                      
                                       <br/>
-                                       <h:outputText value="#{post.post_content}"/>
                                         
+                                        <div>
+                                            <h5><h:outputText value="#{post.post_content}"/>
+                                            
+                                            </h5>
+                                        </div>
+                                        
+
                                        <hr/>
                                        <h:panelGrid columns="2">
                                            
-                                           <p:commandButton value="Like"  icon="fa fa-thumbs-o-up" style="background-color: transparent; border:none;">
-                                               
+                  
+                                           <p:commandButton value="Like" icon="fa fa-thumbs-o-up" 
+                                                            styleClass="#{post.styleClass}" oncomplete="refresh();"> 
+                                               <p:ajax event="click" listener="#{likebean.registerPlike(post)}" update="frm:datatable"/>
+                                              
                                            </p:commandButton>
                                            
+                                           
                                          
-                                           <p:commandButton icon="fa fa-comment" value="Comment" style="background-color:transparent; border:none;"/>
+                                           <p:commandButton icon="fa fa-comment" value="Comment" style="background-color:transparent; 
+                                                            border:none;" styleClass="btnNotClicked"/>
                                            
                                        </h:panelGrid>                                    
                                        <hr/>    
@@ -114,9 +164,18 @@
                                                         <small>On  <h:outputText value="#{comment.dateAsString}"/> </small>
                                                         
                                                          <div>
-                                                            <p:outputLabel value="#{comment.content}"/> 
+                                                            <p:outputLabel value="#{comment.content}"/>
                                                          </div> 
-                                                    </div>
+                                                        
+                                                        
+                                                        
+                                                      </div>
+                                                        
+                                                        <div id="like_comment">
+                                                            <p:commandLink onclick="colorear(this);" value="Like"/>
+                                                            <p:commandLink value="respond" style="margin-left:10px;"/>
+                                                        </div>
+                                                        
                                                      </h:column> 
                                                    </h:dataTable>
                                                </div>
@@ -126,15 +185,14 @@
                                        <hr/>
                                        <div class="row">
                                            <div class="col col-md-9">
-                                               <p:inputText  value="#{commentBean.pComment.content}" styleClass="form-control" placeholder="add a comment to this post">
-                                                   <p:ajax  event="change" listener="#{commentBean.addComment()}" update="frm:datatable"/>
+                                               <p:inputText value="#{commentBean.contenido}" styleClass="form-control" placeholder="add a comment to this post">
+                                                
+                                                   <p:ajax event="change" listener="#{commentBean.setText}"/>
                                                </p:inputText>
-                   
                                            </div>  
                                            <div class="col col-md-2">
                                                <p:commandButton styleClass="btn-outline-info agregarbtn" value="Add" 
-                                                                actionListener="#{commentBean.addParentComment(postbean)}" update="repeater">                               
-                                                   <p:ajax event="click" listener="#{commentBean.addPost(post)}"  update="repeater"/>      
+                                                                actionListener="#{commentBean.addParentComment(post)}" update="repeater">                                  
                                                </p:commandButton>
                                            </div>                                         
                                        </div> 
@@ -143,6 +201,7 @@
                                   
                           </h:column>
                         </h:dataTable>
+                      
                        </div>
                           
                           
@@ -165,11 +224,14 @@
                                                        <small>
                                                           <p:graphicImage library="images" name="kitty.jpg" width="45" height="45"
                                                                           style="border-radius: 10px;"/>
-                                                          <p:commandLink action="#{profilebean.redirect()}" value="#{prof.firstName} #{prof.lastName}">
+                                                          <p:commandLink  action="#{profilebean.redirect()}" value="#{prof.firstName} #{prof.lastName}">
                                                           
                                                               <f:setPropertyActionListener target="#{profilebean.prof}" value="#{prof}"/>
                        
                                                           </p:commandLink>
+                                                          
+
+                                                          
                                                         </small>
                                                        </div>
                                                       </h:column>

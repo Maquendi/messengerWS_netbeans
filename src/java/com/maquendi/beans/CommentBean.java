@@ -2,7 +2,6 @@
 package com.maquendi.beans;
 
 import com.maquendi.theBrain.dao.CommentDao;
-import com.maquendi.theBrain.entities.C_Comment;
 import com.maquendi.theBrain.entities.Comment;
 import com.maquendi.theBrain.entities.Parent_Comment;
 import com.maquendi.theBrain.entities.Post;
@@ -11,6 +10,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -22,35 +22,48 @@ import javax.inject.Named;
 @ViewScoped
 public class CommentBean implements Serializable{
     
-    private Parent_Comment pComment;
-    private C_Comment cComment;
-    private Comment comment;
-    private Post post;
-    private String comentario;
-    private String savedComment;
     private Profile loggedUser;
     private Profile visited_profile;
-    
-    
+    private Comment comment;
+    private String contenido;
+    private String texto;
+    @ManagedProperty(value="#{PostBean}")
+    private PostBean postbean;
+
     @PostConstruct
     public void init(){
         
-        pComment = new Parent_Comment();
         loggedUser = (Profile) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loggedUser");
-        pComment.setProfile(loggedUser);
-        cComment = new C_Comment();
     }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
+    public PostBean getPostbean() {
+        return postbean;
+    }
+
+    public void setPostbean(PostBean postbean) {
+        this.postbean = postbean;
+    }
+
+    
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
     
     
-
-    public Profile getLoggedUser() {
-        return loggedUser;
-    }
-
-    public void setLoggedUser(Profile loggedUser) {
-        this.loggedUser = loggedUser;
-    }
-
+    
     public Profile getVisited_profile() {
         return visited_profile;
     }
@@ -69,102 +82,28 @@ public class CommentBean implements Serializable{
         this.commentList = commentList;
     }
     
-    
-    
-    
-
-    public String getComentario() {
-        return comentario;
+    public void setText(){
+        texto = contenido;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
-
-    public String getSavedComment() {
-        return savedComment;
-    }
-
-    public void setSavedComment(String savedComment) {
-        this.savedComment = savedComment;
-    }
-    
-    
-    
-    
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
-  
-
-    public Parent_Comment getpComment() {
-        return pComment;
-    }
-
-    public void setpComment(Parent_Comment pComment) {
-        this.pComment = pComment;
-    }
-
-    public C_Comment getcComment() {
-        return cComment;
-    }
-
-    public void setcComment(C_Comment cComment) {
-        this.cComment = cComment;
-    }
-    
-
-
-
-    
-   
      
-    public void addParentComment(PostBean postbean){
+    public void addParentComment(Post post){
         
-        pComment.setContent(comentario);
+        comment = new Parent_Comment();
+        comment.setProfile(loggedUser);
+        comment.setContent(texto);
+      
+        System.out.println(comment);
         CommentDao dao = new CommentDao();
         try{
-             Comment c = dao.addCommentToPOST(pComment,post.getPostId());
-             savedComment = c.getContent();
+             dao.addCommentToPOST((Parent_Comment)comment,post.getPostId());
              postbean.loadPosts(post.getProfile());
-        }catch(SQLException | NullPointerException e){
+           }catch(SQLException | NullPointerException e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"error","SQL Exception: " + e));
         }  
-        
-    }
-    
-    public void addComment(){
-        comentario = pComment.getContent();
-    }
-    
-   public void addPost(Post p){
-      this.post = p;
-   }
-   
-   
-   
-   
-   public void loadComments(Post p){
-      
-       CommentDao dao = new CommentDao();
-       this.post = p;
-       
-       try{
-           
-          commentList = dao.findAllParentComments(post.getPostId());         
-          post.setLista_comentarios(commentList);
+     }
 
-       }catch(SQLException e){
-           System.out.println("error: "+ e.getMessage());
-       }
-       
-       
-   }
+  
+    
    
 }

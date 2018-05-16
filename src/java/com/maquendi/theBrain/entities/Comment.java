@@ -3,18 +3,19 @@ package com.maquendi.theBrain.entities;
 
 
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 
-public class Comment{
+public class Comment implements Serializable{
     
     protected Integer commentId;
     protected Profile profile;
     protected Date comment_date;
     protected String content;
-    private String dateAsString;
+    protected String dateAsString;
     
     
 
@@ -72,10 +73,6 @@ public class Comment{
         this.comment_date = comment_date;
     }
 
- 
-   
-    
-    
 
     @Override
     public int hashCode() {
@@ -104,8 +101,9 @@ public class Comment{
 
     @Override
     public String toString() {
-        return "Comment{" + "commentId=" + commentId + ", profile=" + profile + ", comment_date=" + comment_date + ", comment_type=" + '}';
+        return "Comment{" + "commentId=" + commentId + ", profile=" + profile + ", comment_date=" + comment_date + ", content=" + content + ", dateAsString=" + dateAsString + '}';
     }
+
     
     
     

@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,22 +59,24 @@ public class PostDao {
          String query = "SELECT * FROM post WHERE whos_profile = ?";
  
          try{
-             Post po = null;
+             
              PreparedStatement pst = conn.connectar().prepareStatement(query);
              pst.setInt(1,profileId);
              ProfileDao pDao = new ProfileDao();
+             LikeDao ldao = new LikeDao();
              CommentDao dao = new CommentDao();
              ResultSet rs = pst.executeQuery();
              
              while(rs.next())
              {
-               po = new Post();
+               Post po = new Post();
                po.setPostId(rs.getInt("postId"));
                po.setPost_content(rs.getString("post_content"));
                po.setProfile(pDao.find(rs.getInt("profileId")));
                po.setWhos_profile(pDao.find(rs.getInt("whos_profile")));
                po.setPost_date(new java.util.Date(rs.getTimestamp("date_created").getTime()));
                po.setLista_comentarios(dao.findAllParentComments(rs.getInt("postId")));
+               po.setListaLikes(ldao.getAllByPost(rs.getInt("postId")));
                lista.add(po);
              }
              

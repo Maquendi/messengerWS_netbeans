@@ -2,7 +2,6 @@
 package com.maquendi.theBrain.entities;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 

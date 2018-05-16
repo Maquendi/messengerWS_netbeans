@@ -20,6 +20,7 @@ public class Parent_Comment extends Comment implements Serializable{
 
     public List<C_Comment> getChildrenList() {
         return childrenList;
+        
     }
 
     public void setChildrenList(List<C_Comment> childrenList) {

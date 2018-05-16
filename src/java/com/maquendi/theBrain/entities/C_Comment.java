@@ -13,6 +13,7 @@ public class C_Comment  extends Comment implements Serializable{
     
     public C_Comment(){
         super();
+        
     }
 
     public Integer getParent() {
